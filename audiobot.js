@@ -70,6 +70,7 @@ slack.on('message', function(message) {
     //console.log('started = ' + started);
     var channel = slack.getChannelGroupOrDMByID(message.channel);
     var user = slack.getUserByID(message.user);
+    console.log(platform)
 
     if(message.type === 'message') {
         //get message text
@@ -78,7 +79,7 @@ slack.on('message', function(message) {
         var player = 'afplay ';
         if(messageText) {
             //pick output device 1 = headphones, 2 = speakers (default) - windows only
-            if(platform === 'win32') {
+            if (platform === 'win32')  {
                 player = 'mplayer ';
                 var hasTest = message.text.indexOf("test");
                 if(hasTest > -1) { //test was included, so play through device 1 (headphones)
@@ -87,7 +88,9 @@ slack.on('message', function(message) {
                     //test not included so play through device 2 (speakers)
                     outputDevice = '-ao dsound:device=2 ';
                 }
+                console.log(outputDevice)
             } else {
+                player = 'mplayer ';
                 outputDevice = '';
             }
 
